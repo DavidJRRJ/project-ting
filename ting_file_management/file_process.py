@@ -24,10 +24,14 @@ def process(path_file, instance: Queue):
 def remove(instance: Queue):
     if len(instance) == 0:
         return sys.stdout.write("Não há elementos\n")
-    
+
     rm_dict = instance.dequeue()
     print(f'Arquivo {rm_dict["nome_do_arquivo"]} removido com sucesso\n')
 
 
-def file_metadata(instance, position):
-    """Aqui irá sua implementação"""
+def file_metadata(instance: Queue, position):
+    try:
+        metadata = instance.search(position)
+        sys.stdout.write(str(metadata))
+    except IndexError:
+        sys.stderr.write("Posição inválida\n")
